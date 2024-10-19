@@ -201,4 +201,25 @@ LIMIT 50;
 
 
 
+SELECT 
+    CAST(REPLACE(play.price, '$', '') AS NUMERIC) AS price_numeric,
+   app.name,
+	app.review_count,
+ app.rating,
+ app.price,
+    CASE 
+        WHEN CAST(REPLACE(play.price, '$', '') AS NUMERIC) <= 1 THEN 10000
+        WHEN CAST(REPLACE(play.price, '$', '') AS NUMERIC) > 1 THEN 10000 * CAST(REPLACE(play.price, '$', '') AS NUMERIC)
+        ELSE NULL
+    END AS calculated_price
+FROM app_store_apps AS app
+INNER JOIN play_store_apps AS play
+ON app.name=play.name
+--WHERE  CAST(REPLACE(play.price, '$', '') AS NUMERIC) IS NOT NULL
+--GROUP BY name, price,rating,review_count
+ORDER BY review_count DESC; fff
+
+
+
+
 
