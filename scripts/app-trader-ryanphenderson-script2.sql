@@ -52,12 +52,13 @@ FROM annual_revenue AS ann
 		USING (name)
 ORDER BY total_revenue DESC
 )
-SELECT DISTINCT name, app.price AS app_price, play.price AS play_price, total.total_reviews, play.install_count as play_store_installs, total.lifetime, app.content_rating, play.content_rating, app.primary_genre, play.genres, total.total_revenue
+SELECT DISTINCT name, app.price AS app_price, app.rating AS app_rating, play.rating AS play_rating, play.price AS play_price, total.total_reviews, play.install_count as play_store_installs, total.lifetime, app.content_rating, play.content_rating, app.primary_genre, play.genres, total.total_revenue
 FROM total_revenue AS total
 	FULL OUTER JOIN app_store_apps AS app
 		USING (name)
 	FULL OUTER JOIN play_store_apps AS play
 		USING (name)
 ORDER BY total.total_revenue DESC, total.total_reviews DESC
-LIMIT 10;
+
+
 
